@@ -5,15 +5,19 @@ import { Pattern } from './Pattern';
 
 function App() {
   const [board,setboard] = useState(["","","","","","","","",""])
-  const [player,setplayer] = useState("x")
+  const [player,setplayer] = useState("o")
   const  [result,setResult] = useState({state:"none", winner:"none"})
   useEffect(()=>{
     checkwin();
+    checkTie();
+    
+    player=="x"?setplayer("o"):setplayer("x")
   },[board])
   
   useEffect(()=> {
     if(result.state != "none"){
       alert(`game finished winner is:${result.winner}`)
+      restart();
 
     }
    
@@ -25,7 +29,6 @@ function App() {
       return idx==square&&val==""?player:val; 
       
     }))
-    player =="x"?setplayer("o"):setplayer("x")
   }
   const checkwin = () =>{
     Pattern.forEach((currentpattern) => {
@@ -43,7 +46,29 @@ function App() {
     })
   }
 
+const checkTie = () => {
+ let filled = true
+ board.forEach((square) => {
+  if(square == ""){
+    filled = false;
+  }
+  })
+  if(filled){
 
+              setResult({state:"no one",winner:"none"})
+        }
+
+      
+}
+      
+    
+  
+  
+
+const restart = () => {
+  setboard(["","","","","","","","",""])
+  setplayer("o")
+}
 
 
 
