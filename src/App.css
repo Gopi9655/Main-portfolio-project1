@@ -40,3 +40,6 @@ body{
   color: rgb(1, 255, 43);
 
 }
+.square:active{
+  background-color: cyan;
+}
